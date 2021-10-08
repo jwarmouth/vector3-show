@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class DrawLine : MonoBehaviour
 {
-    public GameObject origin;
-    public GameObject other;
+    public Transform origin;
     public LineRenderer lr;
-    public Text ui;
     public TextMeshProUGUI tm;
 
     // Start is called before the first frame update
@@ -17,27 +14,17 @@ public class DrawLine : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         tm = GetComponentInChildren<TextMeshProUGUI>();
-        if (origin == null)
-        {
-            origin = GameObject.Find("Origin");
-        }
-        if (other == null)
-        {
-            other = gameObject;
-        }
+        origin = GameObject.Find("Origin").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lr != null)
-        {
-            lr.SetPosition(0, origin.transform.position);
-            lr.SetPosition(1, other.transform.position);
-        }
-        if (tm != null)
-        {
-            tm.text = (other.transform.position - origin.transform.position).ToString();
-        }
+        Vector3 lineVector = transform.position - origin.position;
+
+        lr.SetPosition(0, origin.position);
+        lr.SetPosition(1, transform.position - lineVector.normalized / 1.5f);
+
+        tm.text = lineVector.ToString();
     }
 }

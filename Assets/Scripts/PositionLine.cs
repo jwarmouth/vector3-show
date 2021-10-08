@@ -15,6 +15,6 @@ public class PositionLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = (dl.origin.transform.position + dl.other.transform.position) / 2;
+        //transform.position = (dl.origin.transform.position + dl.other.transform.position) / 2;
     }
 }
